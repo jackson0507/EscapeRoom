@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html>
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js" type="text/javascript" charset="utf-8"></script> 
+
+  <head>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>  
+
+<body>
+    <p id="tripped">wire in tact</p><br>
+
+    <audio controls autoplay hidden="" src="woop_woop.mp3" type ="audio/mp3">your browser does not support Html5</audio>
+
+ 
+    <script type="text/javascript">
+
+      window.setInterval(function() {
+
+        var deviceID = "2a0022001047363336383437";
+        var accessToken = "2d6464e638db8cf24933f404bf603acb93cc81fe";
+        var varName = "tripped";
+
+        requestURL = "https://api.spark.io/v1/devices/" + deviceID + "/" + varName + "/?access_token=" + accessToken;
+        $.getJSON(requestURL, function(json) {
+                 if (json.result === 1) {
+                    document.getElementById("tripped").innerHTML = "wire tripped";
+                    document.getElementById("alarm").play();
+                 } else {
+                    document.getElementById("tripped").innerHTML = "wire in tact";
+                 }
+
+                 });
+    }, 1000);
+    </script>
+</body>
+</html>
